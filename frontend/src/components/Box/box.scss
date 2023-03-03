@@ -1,0 +1,62 @@
+.box {
+  flex: 1;
+  max-width: 270px;
+  height: 450px;
+  position: relative;
+  .box--top {
+    height: 90%;
+    width: 100%;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+    overflow: hidden;
+    &:hover {
+      img {
+        transform: scale(1.1);
+      }
+      .mainImg {
+        z-index: -1;
+      }
+    }
+    .new {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      font-size: 0.8rem;
+      padding: 0px 2px;
+      color: #03a9f4;
+      font-weight: 500;
+      border-radius: 0.25rem;
+      background-color: white;
+      z-index: 3;
+    }
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      transition: 0.3s;
+      position: absolute;
+
+      &.mainImg {
+        z-index: 2;
+      }
+    }
+  }
+  .box--bottom {
+    padding: 0.5rem 0;
+    .box--title {
+      font-weight: 600;
+    }
+    .box--prices {
+      display: flex;
+      gap: 1rem;
+      font-weight: 600;
+      align-items: center;
+      .old {
+        text-decoration: line-through;
+        color: gray;
+        font-weight: normal;
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
