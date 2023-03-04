@@ -33,10 +33,10 @@ const Contact = () => {
         <StyledIconButton href='https://www.instagram.com/mortada_korti' target='_blank'>
           <InstagramIcon />
         </StyledIconButton>
-        <StyledIconButton href='https://www.twitter.com/mortada_kr' target='_blank'>
+        <StyledIconButton href='https://www.github.com/xtern44' target='_blank'>
           <GitHubIcon />
         </StyledIconButton>
-        <StyledIconButton href='https://www.facebook.com/xtern44' target='_blank'>
+        <StyledIconButton href='https://www.linkedin.com/in/mortada-korti/' target='_blank'>
           <LinkedInIcon />
         </StyledIconButton>
       </div>
