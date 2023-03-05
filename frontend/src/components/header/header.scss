@@ -1,19 +1,9 @@
 .header {
-  display: flex;
-  align-items: center;
   height: 4rem;
-  padding: 10px 20px;
-  //   background-color: red;
+  padding: 1rem 2rem;
   .header--wrapper {
-    display: flex;
-    justify-content: space-between;
     width: 100%;
-    & > div {
-      display: flex;
-      align-items: center;
-    }
     .header--left {
-      gap: 2rem;
       .header--item {
         display: flex;
         align-items: center;
@@ -21,26 +11,25 @@
           transition: 0.3s;
           border-bottom: 1px solid transparent;
           &:hover {
-            color: #03a9f4;
-            border-color: #03a9f4;
+            color: #1976d2;
+            border-color: #1976d2;
           }
         }
       }
     }
     .header--center {
-        font-weight: 500;
-        font-size: 1.8rem;
-        color: #03a9f4;
+      font-weight: 500;
+      font-size: 1.8rem;
+      color: #1976d2;
     }
     .header--right {
-      gap: 2rem;
       .header--link {
         a {
           transition: 0.3s;
           border-bottom: 1px solid transparent;
           &:hover {
-            color: #03a9f4;
-            border-color: #03a9f4;
+            color: #1976d2;
+            border-color: #1976d2;
           }
         }
       }

@@ -1,5 +1,5 @@
 import Col from "react-bootstrap/esm/Col";
-import Box from "../Box/Box";
+import Item from "../item/Item";
 import "./list.scss";
 
 const List = () => {
@@ -61,7 +61,7 @@ const List = () => {
     <div className='list'>
       {data?.map((item) => (
         <Col key={item.id} sm={12} md={6} lg={4} xl={3}>
-          <Box item={item} />
+          <Item item={item} />
         </Col>
       ))}
     </div>

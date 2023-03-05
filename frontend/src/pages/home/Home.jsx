@@ -3,6 +3,7 @@ import "./home.scss";
 import FeaturesProducts from "../../components/featuredProducts/FeaturesProducts";
 import Categories from "../../components/categories/Categories";
 import Contact from "../../components/contact/Contact";
+import { Box } from "@mui/material";
 const Home = () => {
   const images = [
     "https://images.pexels.com/photos/1549200/pexels-photo-1549200.jpeg?auto=compress&cs=tinysrgb&w=1600",
@@ -10,7 +11,9 @@ const Home = () => {
     "https://images.pexels.com/photos/837140/pexels-photo-837140.jpeg?auto=compress&cs=tinysrgb&w=1600",
   ];
   return (
-    <div className='home'>
+    <Box
+      className='home'
+      sx={{ backgroundColor: "background.default", color: "text.primary" }}>
       <Carousel className='carousel'>
         {images?.map((item) => (
           <Carousel.Item key={item} className='carousel--item'>
@@ -22,7 +25,7 @@ const Home = () => {
       <Categories />
       <FeaturesProducts type={"Trending"} />
       <Contact />
-    </div>
+    </Box>
   );
 };
 

@@ -1,4 +1,5 @@
-import Box from "../Box/Box";
+import { Stack, Typography } from "@mui/material";
+import Item from "../item/Item";
 import "./featuredProducts.scss";
 
 const FeaturesProducts = ({ type }) => {
@@ -37,18 +38,27 @@ const FeaturesProducts = ({ type }) => {
   ];
   return (
     <div className='featuredProducts'>
-      <div className='top'>
-        <h1>{type} Products</h1>
-        <p>
+      <Stack
+        direction='row'
+        justifyContent='space-between'
+        alignItems='center'
+        spacing={10}>
+        <Typography variant='h2' component='h3' sx={{ width: "50%" }}>
+          {type} Products
+        </Typography>
+        <Typography
+          variant='p'
+          component='p'
+          sx={{ color: "text.secondary", width: "50%" }}>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti
           odio ipsam vero deserunt rem blanditiis obcaecati autem porro
           reprehenderit omnis ex sed facere, nobis, velit dolor animi maiores
           mollitia nam.
-        </p>
-      </div>
+        </Typography>
+      </Stack>
       <div className='bottom'>
         {data?.map((item) => (
-          <Box key={item.id} item={item} />
+          <Item key={item.id} item={item} />
         ))}
       </div>
     </div>
