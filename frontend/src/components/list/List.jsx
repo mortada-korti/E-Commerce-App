@@ -1,6 +1,7 @@
 import Col from "react-bootstrap/esm/Col";
 import Item from "../item/Item";
 import "./list.scss";
+import { Box, Grid, Stack } from "@mui/material";
 
 const List = () => {
   const data = [
@@ -58,13 +59,23 @@ const List = () => {
     },
   ];
   return (
-    <div className='list'>
+    <Grid container direction='row' spacing={2} sx={{ maxWidth: "100%" }}>
       {data?.map((item) => (
-        <Col key={item.id} sm={12} md={6} lg={4} xl={3}>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          lg={4}
+          xl={3}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+          key={item.id}>
           <Item item={item} />
-        </Col>
+        </Grid>
       ))}
-    </div>
+    </Grid>
   );
 };
 

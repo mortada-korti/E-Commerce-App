@@ -28,8 +28,8 @@ function App() {
       secondary: {
         main: "#f50057",
       },
-      info: {
-        main: "#bcd102",
+      background: {
+        default: darkMode ? "#222" : "#fff",
       },
       divider: "rgba(214,214,214,0.32)",
     },

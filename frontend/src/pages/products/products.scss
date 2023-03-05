@@ -1,40 +1,4 @@
 .products {
   display: flex;
-  min-height: calc(100vh - 5rem);
-
-  .products--left {
-    top: 0rem;
-    position: sticky !important;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    padding: 2rem;
-    .left--item {
-      .slider {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-      }
-      span {
-        &.item--title {
-          font-weight: 600;
-        }
-        &.MuiSlider-root {
-          width: 150px;
-          display: block;
-        }
-      }
-    }
-  }
-  .products--right {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    img {
-      height: 300px;
-      width: 100%;
-      object-fit: cover;
-    }
-  }
+  min-height: calc(100vh - 4rem);
 }

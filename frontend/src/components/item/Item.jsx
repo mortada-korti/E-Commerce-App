@@ -27,7 +27,7 @@ const Item = ({ item }) => {
     },
   }));
   return (
-    <StyledCard sx={{ width: 270 }}>
+    <StyledCard sx={{ width: 350 }}>
       <StyledCardMedia
         sx={{ height: 450 }}
         image={item.img}

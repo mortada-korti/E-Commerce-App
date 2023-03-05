@@ -33,7 +33,11 @@ const Header = () => {
       className='header'
       alignItems='center'
       direction='row'
-      sx={{ bgcolor: "background.default" }}>
+      sx={{
+        bgcolor: "background.default",
+        borderBottom: "1px solid transparent",
+        borderColor: "divider",
+      }}>
       <StyledStack
         className='header--wrapper'
         justifyContent='space-between'
@@ -133,9 +137,9 @@ const Header = () => {
 
 export default Header;
 
-const StyledStack = styled(Stack)({
+const StyledStack = styled(Stack)(({ theme }) => ({
   backgroundColor: "background.default",
-});
+}));
 
 const StyledLink = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.primary,

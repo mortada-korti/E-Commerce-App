@@ -6,7 +6,15 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BalanceIcon from "@mui/icons-material/Balance";
 import "./product.scss";
-import { Button, Divider, IconButton, Stack } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  Grid,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 
 const Product = () => {
@@ -25,37 +33,61 @@ const Product = () => {
     "https://images.pexels.com/photos/12179283/pexels-photo-12179283.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
   ];
   return (
-    <div className='product'>
-      <Col md={6} className='product--left'>
-        <div className='small'>
-          <div className='top'>
+    <Grid
+      container
+      className='product'
+      spacing={2}
+      sx={{
+        padding: "2rem",
+        backgroundColor: "background.default",
+        color: "text.primary",
+      }}>
+      <Grid
+        item
+        xs={6}
+        className='product--left'
+        sx={{ gap: "1rem", display: "flex" }}>
+        <Stack
+          className='small'
+          direction='column'
+          spacing={2}
+          sx={{ flex: 1 }}>
+          <Box
+            className='top'
+            sx={{ flex: 1, maxHeight: "150px", overflow: "hidden" }}>
             <img src={images[0]} alt='' onClick={() => setSelectedIndex(0)} />
-          </div>
-          <div className='bottom'>
+          </Box>
+          <Box
+            className='bottom'
+            sx={{ flex: 1, maxHeight: "150px", overflow: "hidden" }}>
             <img src={images[1]} alt='' onClick={() => setSelectedIndex(1)} />
-          </div>
-        </div>
-        <div className='large'>
+          </Box>
+        </Stack>
+        <Box className='large' sx={{ flex: 1 }}>
           <img src={images[selectedIndex]} alt='' />
-        </div>
-      </Col>
-      <Col md={6} className='product--right'>
-        <h1 className='title'>Long Sleeve Graphic T-shirt</h1>
-        <span className='price'>$19.99</span>
-        <p>
+        </Box>
+      </Grid>
+      <Grid item md={6} className='product--right'>
+        <Typography sx={{ fontSize: "2rem", fontWeight: "600" }}>
+          Long Sleeve Graphic T-shirt
+        </Typography>
+        <Typography sx={{ color: "primary.main", fontSize: "1.5rem" }}>
+          $19.99
+        </Typography>
+        <Typography sx={{ color: "text.secondary" }}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut assumenda
           ducimus repudiandae! Sed, provident vitae expedita pariatur deleniti
           sequi accusantium aut. Illo pariatur dignissimos voluptatibus eius
           aperiam itaque, magni quae.
-        </p>
-        <Stack className='quantity' alignItems='center' direction='row'>
+        </Typography>
+        <Stack alignItems='center' direction='row'>
           <IconButton
             color='primary'
             onClick={() => handleQuantity("-")}
             disabled={quantity === 1}>
             <RemoveCircleRoundedIcon />
           </IconButton>
-          <span>{quantity}</span>
+          <Typography>{quantity}</Typography>
           <IconButton
             color='primary'
             onClick={() => handleQuantity("+")}
@@ -90,7 +122,7 @@ const Product = () => {
           <span>Product Type: T-Shirt</span>
           <span>Tag: T-Shirt, Women, Top</span>
         </Stack>
-        <hr />
+        <Divider />
         <Stack
           className='additional-info'
           direction='column'
@@ -100,8 +132,8 @@ const Product = () => {
           <span>ADDITIONAL INFORMATION</span>
           <span>FAQ</span>
         </Stack>
-      </Col>
-    </div>
+      </Grid>
+    </Grid>
   );
 };
 

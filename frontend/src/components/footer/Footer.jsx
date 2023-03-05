@@ -112,6 +112,8 @@ const StyledLink = styled(Typography)(({ theme }) => ({
 const StyledFooter = styled(Stack)(({ theme }) => ({
   marginTop: "auto",
   padding: "4rem 7rem 1rem",
+  borderTop: "1px solid transparent",
+  borderColor: theme.palette.divider,
   backgroundColor: theme.palette.background.default,
   color: theme.palette.text.primary,
 }));

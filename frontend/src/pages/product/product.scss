@@ -1,23 +1,9 @@
 .product {
-  padding: 1rem 4rem 0 2rem;
-  display: flex;
-  gap: 2rem;
-  height: calc(100vh - 5rem);
-  .product--left {
-    display: flex;
-    gap: 1rem;
+  min-height: calc(100vh - 5rem);
 
+  .product--left {
     .small {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      max-height: 300px;
-      overflow: hidden;
       & > div {
-        max-height: 150px;
-        min-height: 150px;
-        overflow: hidden;
         img {
           height: 100%;
           width: 100%;
