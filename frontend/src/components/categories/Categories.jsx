@@ -9,7 +9,7 @@ import "./categories.scss";
 
 const Categories = () => {
   return (
-    <StyledCategories direction='row' spacing={1}>
+    <StyledCategories>
       {/*  */}
       <Stack direction='row' spacing={1}>
         {/*  */}
@@ -85,7 +85,9 @@ const Categories = () => {
 export default Categories;
 
 const StyledCategories = styled(Stack)(({ theme }) => ({
+  flexDirection: "row",
   height: "80vh",
+  gap: "0.5rem",
   padding: "0 1rem",
   "& > div": {
     flex: 1,
@@ -97,6 +99,10 @@ const StyledCategories = styled(Stack)(({ theme }) => ({
         overflow: "hidden",
       },
     },
+  },
+  [theme.breakpoints.down("sm")]: {
+    flexDirection: "column",
+    height: "100%",
   },
 }));
 

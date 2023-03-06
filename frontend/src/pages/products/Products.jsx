@@ -21,18 +21,12 @@ const Products = () => {
   const catId = parseInt(useParams().id);
 
   return (
-    <Grid
-      container
-      className='products'
-      direction='row'
-      sx={{ backgroundColor: "background.default" }}>
-      <SideBar item xs={4} lg={3} xl={2}>
+    <PageContainer container direction='row'>
+      <SideBar item xs={0} md={5} lg={3} xl={2}>
         {/*  */}
         <Stack spacing={2}>
           {/*  */}
-          <Typography sx={{ fontSize: "1.25rem", fontWeight: "600" }}>
-            Products Categories
-          </Typography>
+          <Title>Products Categories</Title>
 
           <FormGroup>
             <FormControlLabel
@@ -54,9 +48,7 @@ const Products = () => {
 
         <Stack direction='column' spacing={2}>
           {/*  */}
-          <Typography sx={{ fontSize: "1.25rem", fontWeight: "600" }}>
-            Filter By Price
-          </Typography>
+          <Title>Filter By Price</Title>
 
           <Stack
             direction='row'
@@ -84,9 +76,7 @@ const Products = () => {
 
         <Stack direction='column' spacing={2}>
           {/*  */}
-          <Typography sx={{ fontWeight: 600, fontSize: "1.25rem" }}>
-            Sort By
-          </Typography>
+          <Title>Sort By</Title>
 
           <FormControl>
             <RadioGroup defaultValue='female' name='radio-buttons-group'>
@@ -112,7 +102,7 @@ const Products = () => {
         </Stack>
       </SideBar>
 
-      <ProductsContainer item xs={8} lg={9} xl={10}>
+      <ProductsContainer item xs={12} md={7} lg={9} xl={10}>
         <img
           src='https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs=tinysrgb&w=1600'
           alt=''
@@ -120,7 +110,7 @@ const Products = () => {
 
         <List catId={catId} maxPrice={maxPrice} sort={sort} />
       </ProductsContainer>
-    </Grid>
+    </PageContainer>
   );
 };
 
@@ -137,7 +127,11 @@ const SideBar = styled(Grid)(({ theme }) => ({
   flexDirection: "column",
   gap: "2rem",
   height: "100%",
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
 }));
+
 const ProductsContainer = styled(Grid)(({ theme }) => ({
   gap: "2rem",
   display: "flex",
@@ -148,4 +142,15 @@ const ProductsContainer = styled(Grid)(({ theme }) => ({
     width: "100%",
     objectFit: "cover",
   },
+}));
+
+const Title = styled(Typography)(({ theme }) => ({
+  fontWeight: 600,
+  fontSize: "1.25rem",
+}));
+
+const PageContainer = styled(Grid)(({ theme }) => ({
+  display: "flex",
+  minHeight: "calc(100vh - 4rem)",
+  backgroundColor: theme.palette.background.default,
 }));

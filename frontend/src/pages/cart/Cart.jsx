@@ -40,23 +40,25 @@ const Cart = () => {
     },
   ];
   return (
-    <StyledCart direction='column' spacing={2}>
-      {/*  */}
-      <CartTitle
-        sx={{ color: "text.primary", fontSize: "1.5rem", fontWeight: "600" }}>
-        Products in your cart
-      </CartTitle>
-
+    <StyledCart spacing={2}>
+      <CartTitle>Products in your cart</CartTitle>
       {data?.map((item) => (
-        <CartItem direction='row' key={item.id} item={item} spacing={2}>
-          {/*  */}
+        <CartItem key={item.id} item={item}>
           <img src={item.img} alt='' />
 
-          <Stack sx={{ width: "100%" }} alignItems='center' direction='row'>
+          <Stack
+            sx={{ width: "100%" }}
+            alignItems='center'
+            direction={{ xs: "column", sm: "row" }}>
             {/*  */}
-            <Stack spacing={1} sx={{ width: "80%" }}>
+            <Stack spacing={1} sx={{ flex: 1 }}>
               {/*  */}
-              <Typography sx={{ color: "text.primary", fontWeight: "600" }}>
+              <Typography
+                sx={{
+                  color: "text.primary",
+                  fontWeight: "600",
+                  width: "100%",
+                }}>
                 {item.title}
               </Typography>
 
@@ -86,6 +88,7 @@ const Cart = () => {
       <Stack
         className='subtotal'
         justifyContent='space-between'
+        width= "100%" 
         direction='row'>
         <Typography sx={{ color: "text.primary", fontWeight: "600" }}>
           SUBTOTAL
@@ -95,10 +98,10 @@ const Cart = () => {
         </Typography>
       </Stack>
 
-      <Button startIcon={<ShoppingCartCheckoutIcon />} variant='contained'>
+      <Button sx={{width: "100%"}} startIcon={<ShoppingCartCheckoutIcon />} variant='contained'>
         PROCEED TO CHECKOUT
       </Button>
-      <Button startIcon={<RestartAltIcon />} variant='outlined' color='error'>
+      <Button sx={{width: "100%"}} startIcon={<RestartAltIcon />} variant='outlined' color='error'>
         RESET CART
       </Button>
     </StyledCart>
@@ -108,25 +111,41 @@ const Cart = () => {
 export default Cart;
 
 const CartItem = styled(Stack)(({ theme }) => ({
+  alignItems: "center",
+  flexDirection: "row",
+  gap: "0.5rem",
+  height: "120px",
   "& > img": {
     width: "100px",
     objectFit: "cover",
-    height: "120px",
+    height: "100%",
+  },
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+    flexDirection: "column",
+    gap: "1rem",
+    height: "100%",
   },
 }));
 
 const StyledCart = styled(Stack)(({ theme }) => ({
+  display: "flex",
   backgroundColor: theme.palette.background.default,
   padding: "1rem 2rem",
-  position: "absolute",
-  top: "4rem",
-  right: "2rem",
-  width: "500px",
-  zIndex: 3,
+  minHeight: "calc(100vh - 4rem)",
+  [theme.breakpoints.down("sm")]: {
+    padding: "0 0.5rem",
+    width: "100%",
+    right: "0",
+    textAlign: "center",
+    alignItems: "center",
+    overflow: "scroll",
+  },
 }));
 
 const CartTitle = styled(Stack)(({ theme }) => ({
   color: theme.palette.text.primary,
   fontSize: "1.5rem",
   fontWeight: "600",
+  // backgroundColor: "red",
 }));

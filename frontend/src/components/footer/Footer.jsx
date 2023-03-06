@@ -9,11 +9,11 @@ import "./footer.scss";
 
 const Footer = () => {
   return (
-    <StyledFooter className='footer' direction='column' spacing={10}>
+    <StyledFooter>
       {/*  */}
-      <Stack className='footer--top' direction='row' spacing={8}>
+      <Upper direction='row'>
         {/*  */}
-        <Stack direction='column' spacing={1} sx={{ flex: 1 }}>
+        <FooterItem direction='column'>
           <StyledHead>Categories</StyledHead>
           <Stack direction='column' spacing={0.5}>
             <Link to='/products/1'>
@@ -32,9 +32,9 @@ const Footer = () => {
               <StyledLink component='span'>New Arrivals </StyledLink>
             </Link>
           </Stack>
-        </Stack>
+        </FooterItem>
 
-        <Stack direction='column' spacing={1} sx={{ flex: 1 }}>
+        <FooterItem direction='column'>
           <StyledHead>Links</StyledHead>
           <Stack direction='column' spacing={0.5}>
             <Link to=''>
@@ -53,9 +53,9 @@ const Footer = () => {
               <StyledLink component='span'>Cookies</StyledLink>
             </Link>
           </Stack>
-        </Stack>
+        </FooterItem>
 
-        <Stack direction='column' spacing={1} sx={{ flex: 1 }}>
+        <FooterItem>
           <StyledHead>About</StyledHead>
           <Typography
             variant='p'
@@ -65,9 +65,9 @@ const Footer = () => {
             reprehenderit omnis ex sed facere, nobis, velit dolor animi maiores
             mollitia nam.
           </Typography>
-        </Stack>
+        </FooterItem>
 
-        <Stack direction='column' spacing={1} sx={{ flex: 1 }}>
+        <FooterItem>
           <StyledHead>Contact</StyledHead>
           <Typography
             variant='p'
@@ -77,22 +77,22 @@ const Footer = () => {
             reprehenderit omnis ex sed facere, nobis, velit dolor animi maiores
             mollitia nam.
           </Typography>
-        </Stack>
-      </Stack>
+        </FooterItem>
+      </Upper>
 
-      <Stack justifyContent='space-between' direction='row' alignItems='center'>
-        <Stack direction='row' spacing={2}>
-          <StyledLogo variant='h1' component='span' sx={{ fontSize: "2rem" }}>
+      <Lower justifyContent='space-between' direction='row' alignItems='center'>
+        <Stack direction='row' spacing={2} alignItems='flex-start' flex={1}>
+          <StyledLogo variant='h1' component='span'>
             E-SHOP
           </StyledLogo>
-          <Typography sx={{ fontSize: "0.8rem", color: "text.secondary" }}>
+          <Typography sx={{ fontSize: "0.6rem", color: "text.secondary" }}>
             &#169; Copyright 2023 All Rights Reserved
           </Typography>
         </Stack>
-        <Box>
+        <ImgContainer flex={1}>
           <img src='/imgs/payment.png' alt='' />
-        </Box>
-      </Stack>
+        </ImgContainer>
+      </Lower>
     </StyledFooter>
   );
 };
@@ -113,9 +113,20 @@ const StyledFooter = styled(Stack)(({ theme }) => ({
   marginTop: "auto",
   padding: "4rem 7rem 1rem",
   borderTop: "1px solid transparent",
+  gap: "3rem",
   borderColor: theme.palette.divider,
   backgroundColor: theme.palette.background.default,
   color: theme.palette.text.primary,
+  [theme.breakpoints.down("md")]: {
+    padding: "1rem 0.5rem",
+  },
+}));
+
+const FooterItem = styled(Stack)(({ theme }) => ({
+  width: "100%",
+  flexDirection: "column",
+  gap: "0.3rem",
+  flex: 1,
 }));
 
 const StyledHead = styled(Typography)(({ theme }) => ({
@@ -127,4 +138,37 @@ const StyledLogo = styled(Typography)(({ theme }) => ({
   color: theme.palette.primary.main,
   fontSize: "2rem",
   fontWeight: "700",
+  [theme.breakpoints.down("md")]: {
+    fontSize: "1.5rem",
+  },
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "1.2rem",
+  },
+}));
+
+const Upper = styled(Stack)(({ theme }) => ({
+  width: "100%",
+  gap: "2rem",
+  flexDirection: "row",
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+    alignItems: "center",
+    textAlign: "center",
+  },
+}));
+
+const Lower = styled(Stack)(({ theme }) => ({
+  width: "100%",
+  gap: "2rem",
+  justifyContent: "flex-between",
+  flexDirection: "row",
+  [theme.breakpoints.down("sm")]: {
+    flexDirection: "column",
+  },
+}));
+
+const ImgContainer = styled(Box)(({ theme }) => ({
+  "& > img": {
+    maxWidth: "100%",
+  },
 }));

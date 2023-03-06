@@ -1,6 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 import Item from "../item/Item";
 import "./featuredProducts.scss";
+import styled from "@emotion/styled";
 
 const FeaturesProducts = ({ type }) => {
   const data = [
@@ -37,32 +38,67 @@ const FeaturesProducts = ({ type }) => {
     },
   ];
   return (
-    <div className='featuredProducts'>
-      <Stack
-        direction='row'
-        justifyContent='space-between'
-        alignItems='center'
-        spacing={10}>
-        <Typography variant='h2' component='h3' sx={{ width: "50%" }}>
+    <FeaturedProductsContainer>
+      <Upper>
+        <Typography variant='h2' component='h3' sx={{ flex: 1 }}>
           {type} Products
         </Typography>
         <Typography
           variant='p'
           component='p'
-          sx={{ color: "text.secondary", width: "50%" }}>
+          sx={{ color: "text.secondary", flex: 1 }}>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti
           odio ipsam vero deserunt rem blanditiis obcaecati autem porro
           reprehenderit omnis ex sed facere, nobis, velit dolor animi maiores
           mollitia nam.
         </Typography>
-      </Stack>
-      <div className='bottom'>
+      </Upper>
+      <Lower>
         {data?.map((item) => (
           <Item key={item.id} item={item} />
         ))}
-      </div>
-    </div>
+      </Lower>
+    </FeaturedProductsContainer>
   );
 };
 
 export default FeaturesProducts;
+
+const FeaturedProductsContainer = styled(Stack)(({ theme }) => ({
+  padding: "3rem 5rem",
+  display: "flex",
+  flexDirection: "column",
+  gap: "3rem",
+  [theme.breakpoints.down("xl")]: {
+    padding: "1rem",
+  },
+  [theme.breakpoints.down("sm")]: {},
+}));
+
+const Upper = styled(Stack)(({ theme }) => ({
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  [theme.breakpoints.down("xl")]: {
+    flexDirection: "column",
+    gap: "1rem",
+    textAlign: "center",
+  },
+}));
+
+const Lower = styled(Stack)(({ theme }) => ({
+  display: "flex",
+  flexWrap: "wrap",
+  flexDirection: "row",
+  justifyContent: "center",
+  width: "100%",
+  margin: "auto",
+  gap: "2rem",
+  [theme.breakpoints.down("xl")]: {
+    width: "100%",
+  },
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+    alignItems: "center",
+  },
+}));

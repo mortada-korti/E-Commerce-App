@@ -1,23 +1,22 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-  Outlet,
-} from "react-router-dom";
-import Home from "./pages/home/Home";
-import Products from "./pages/products/Products";
-import Product from "./pages/product/Product";
-import Header from "./components/header/Header";
-import Footer from "./components/footer/Footer";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/DarkModeContext";
 import { createTheme } from "@mui/material";
-import { theme } from "./Theme";
+
+// Components
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
+
+// Pages
+import Home from "./pages/home/Home";
+import Products from "./pages/products/Products";
+import Product from "./pages/product/Product";
+import Cart from "./pages/cart/Cart";
+// @mui
 import { ThemeProvider } from "@mui/material/styles";
 
 function App() {
-  const { darkMode, setDarkMode } = useContext(DarkModeContext);
+  const { darkMode } = useContext(DarkModeContext);
 
   const theme = createTheme({
     palette: {
@@ -34,6 +33,7 @@ function App() {
       divider: "rgba(214,214,214,0.32)",
     },
   });
+
   const Layout = () => {
     return (
       <>
@@ -43,6 +43,7 @@ function App() {
       </>
     );
   };
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -60,9 +61,14 @@ function App() {
           path: "/product/:id",
           element: <Product />,
         },
+        {
+          path: "/cart",
+          element: <Cart />,
+        },
       ],
     },
   ]);
+
   return (
     <ThemeProvider theme={theme}>
       <div className='App'>

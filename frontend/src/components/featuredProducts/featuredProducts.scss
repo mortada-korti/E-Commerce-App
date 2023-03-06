@@ -1,25 +1,7 @@
-.featuredProducts {
-  padding: 3rem 7rem;
+.bottom {
   display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  .top {
-    display: flex;
-    align-items: center;
-    h1 {
-      flex: 1;
-    }
-    p {
-      flex: 1;
-      margin: 0;
-      color: gray;
-    }
-  }
-  .bottom {
-    display: flex;
-    margin: auto;
-    justify-content: center;
-    width: 80%;
-    gap: 2rem;
-  }
+  margin: auto;
+  justify-content: center;
+  width: 80%;
+  gap: 2rem;
 }

@@ -8,26 +8,8 @@ import Typography from "@mui/material/Typography";
 import { Stack } from "@mui/material";
 import styled from "@emotion/styled";
 const Item = ({ item }) => {
-  const StyledCard = styled(Card)(({ theme }) => ({
-    backgroundColor: "",
-  }));
-  const StyledCardContent = styled(CardContent)(({ theme }) => ({
-    padding: "0.5rem",
-    "&:last-child": {
-      paddingBottom: "0.5rem",
-    },
-  }));
-  const StyledCardMedia = styled(CardMedia)(({ theme }) => ({
-    transition: "0.3s",
-    overflow: "hidden !important",
-    cursor: "pointer",
-    "&:hover": {
-      transform: "scale(1.5) !important",
-      transitionDelay: "0.5s",
-    },
-  }));
   return (
-    <StyledCard sx={{ width: 350 }}>
+    <StyledCard sx={{ minWidth: 300 }}>
       <StyledCardMedia
         sx={{ height: 450 }}
         image={item.img}
@@ -62,3 +44,27 @@ const Item = ({ item }) => {
 };
 
 export default Item;
+
+const StyledCard = styled(Card)(({ theme }) => ({
+  backgroundColor: "",
+  [theme.breakpoints.down("sm")]: {
+    minWidth: "95%",
+  },
+}));
+
+const StyledCardContent = styled(CardContent)(({ theme }) => ({
+  padding: "0.5rem",
+  "&:last-child": {
+    paddingBottom: "0.5rem",
+  },
+}));
+
+const StyledCardMedia = styled(CardMedia)(({ theme }) => ({
+  transition: "0.3s",
+  overflow: "hidden !important",
+  cursor: "pointer",
+  "&:hover": {
+    transform: "scale(1.5) !important",
+    transitionDelay: "0.5s",
+  },
+}));

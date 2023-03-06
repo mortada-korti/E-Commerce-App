@@ -64,8 +64,8 @@ const List = () => {
         <Grid
           item
           xs={12}
-          md={6}
-          lg={4}
+          md={12}
+          lg={6}
           xl={3}
           sx={{
             display: "flex",
