@@ -40,7 +40,7 @@ const Cart = () => {
     },
   ];
   return (
-    <StyledCart spacing={2}>
+    <StyledCart>
       <CartTitle>Products in your cart</CartTitle>
       {data?.map((item) => (
         <CartItem key={item.id} item={item}>
@@ -88,7 +88,7 @@ const Cart = () => {
       <Stack
         className='subtotal'
         justifyContent='space-between'
-        width= "100%" 
+        width='100%'
         direction='row'>
         <Typography sx={{ color: "text.primary", fontWeight: "600" }}>
           SUBTOTAL
@@ -98,10 +98,17 @@ const Cart = () => {
         </Typography>
       </Stack>
 
-      <Button sx={{width: "100%"}} startIcon={<ShoppingCartCheckoutIcon />} variant='contained'>
+      <Button
+        sx={{ width: "100%" }}
+        startIcon={<ShoppingCartCheckoutIcon />}
+        variant='contained'>
         PROCEED TO CHECKOUT
       </Button>
-      <Button sx={{width: "100%"}} startIcon={<RestartAltIcon />} variant='outlined' color='error'>
+      <Button
+        sx={{ width: "100%" }}
+        startIcon={<RestartAltIcon />}
+        variant='outlined'
+        color='error'>
         RESET CART
       </Button>
     </StyledCart>
@@ -133,13 +140,13 @@ const StyledCart = styled(Stack)(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
   padding: "1rem 2rem",
   minHeight: "calc(100vh - 4rem)",
+  gap: "1rem",
   [theme.breakpoints.down("sm")]: {
-    padding: "0 0.5rem",
-    width: "100%",
-    right: "0",
+    flexDirection: "column",
+    padding: "1rem 0.5rem",
+    maxWidth: "100%",
     textAlign: "center",
     alignItems: "center",
-    overflow: "scroll",
   },
 }));
 

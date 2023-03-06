@@ -9,7 +9,7 @@ import { Stack } from "@mui/material";
 import styled from "@emotion/styled";
 const Item = ({ item }) => {
   return (
-    <StyledCard sx={{ minWidth: 300 }}>
+    <StyledCard>
       <StyledCardMedia
         sx={{ height: 450 }}
         image={item.img}
@@ -25,12 +25,14 @@ const Item = ({ item }) => {
           {item.title}
         </Typography>
         <Stack direction='row' spacing={1} alignItems='center' padding='0'>
-          <Typography
-            variant='body2'
-            color='text.secondary'
-            sx={{ textDecorationLine: "line-through" }}>
-            {item.oldPrice}$
-          </Typography>
+          {item.oldPrice && (
+            <Typography
+              variant='body2'
+              color='text.secondary'
+              sx={{ textDecorationLine: "line-through" }}>
+              {item.oldPrice}$
+            </Typography>
+          )}
           <Typography
             variant='h6'
             color='text.secondary'
@@ -46,6 +48,7 @@ const Item = ({ item }) => {
 export default Item;
 
 const StyledCard = styled(Card)(({ theme }) => ({
+  width: "300px",
   backgroundColor: "",
   [theme.breakpoints.down("sm")]: {
     minWidth: "95%",

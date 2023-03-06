@@ -21,7 +21,7 @@ const Products = () => {
   const catId = parseInt(useParams().id);
 
   return (
-    <PageContainer container direction='row'>
+    <PageContainer container>
       <SideBar item xs={0} md={5} lg={3} xl={2}>
         {/*  */}
         <Stack spacing={2}>
@@ -151,6 +151,7 @@ const Title = styled(Typography)(({ theme }) => ({
 
 const PageContainer = styled(Grid)(({ theme }) => ({
   display: "flex",
+  flexDirection: "row",
   minHeight: "calc(100vh - 4rem)",
   backgroundColor: theme.palette.background.default,
 }));
