@@ -10,8 +10,17 @@ import styled from "@emotion/styled";
 import "./list.scss";
 import UseFtech from "../../hooks/UseFtech";
 
-const List = () => {
-  const { data, loading, error } = UseFtech("/products");
+const List = ({ catId, subCats, sort }) => {
+  const payload = {
+    catId: catId,
+    subCats: subCats,
+    sort: sort
+  };
+  const { data, loading, error } = UseFtech(
+    "/products",
+    "post",
+    JSON.stringify(payload)
+  );
 
   return (
     <ListContainer container>
@@ -20,6 +29,7 @@ const List = () => {
       ) : error ? (
         <Typography color='text.primary'>Something Went Wrong...</Typography>
       ) : (
+        data &&
         data?.map((item) => (
           <Grid
             item

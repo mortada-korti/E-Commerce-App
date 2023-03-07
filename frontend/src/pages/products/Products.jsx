@@ -14,11 +14,25 @@ import styled from "@emotion/styled";
 
 // Style
 import "./products.scss";
+import UseFtech from "../../hooks/UseFtech";
 
 const Products = () => {
-  const [maxPrice, setMaxPrice] = useState(null);
-  const [sort, setSort] = useState("");
+  const [sort, setSort] = useState("asc");
   const catId = parseInt(useParams().id);
+console.log(sort)
+  const [maxPrice, setMaxPrice] = useState(null);
+  const [selectedSubCategories, setSelectedSubCategories] = useState([]);
+
+  const handleSelectedSubcats = (e) => {
+    const { checked, value } = e.target;
+    setSelectedSubCategories(
+      checked
+        ? (prev) => [...prev, parseInt(value)]
+        : (prev) => prev.filter((item) => item !== parseInt(value))
+    );
+  };
+
+  const { data, loading, error } = UseFtech("/subcategories", "get");
 
   return (
     <PageContainer container>
@@ -29,19 +43,26 @@ const Products = () => {
           <Title>Products Categories</Title>
 
           <FormGroup>
-            <FormControlLabel
-              disableTypography
-              sx={{ color: "text.secondary" }}
-              control={<Checkbox />}
-              label='hat'
-            />
-
-            <FormControlLabel
-              disableTypography
-              sx={{ color: "text.secondary" }}
-              control={<Checkbox />}
-              label='t-shirt'
-            />
+            {loading ? (
+              <Typography color='text.primary'>Loading...</Typography>
+            ) : error ? (
+              <Typography color='text.primary'>
+                Something Went Wrong ...
+              </Typography>
+            ) : (
+              data &&
+              data?.map((item) => (
+                <FormControlLabel
+                  key={item.subcat_id}
+                  disableTypography
+                  sx={{ color: "text.secondary" }}
+                  control={<Checkbox />}
+                  label={item.name}
+                  onChange={handleSelectedSubcats}
+                  value={item.subcat_id}
+                />
+              ))
+            )}
           </FormGroup>
           {/*  */}
         </Stack>
@@ -108,7 +129,12 @@ const Products = () => {
           alt=''
         />
 
-        <List catId={catId} maxPrice={maxPrice} sort={sort} />
+        <List
+          catId={catId}
+          maxPrice={maxPrice}
+          sort={sort}
+          subCats={selectedSubCategories}
+        />
       </ProductsContainer>
     </PageContainer>
   );

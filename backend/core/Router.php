@@ -2,8 +2,6 @@
 
 namespace app\core;
 
-use Error;
-
 class Router
 {
     public Request $request;
@@ -33,7 +31,7 @@ class Router
         }
         if (is_array($callback)) {
             $callback[0] = new $callback[0]();
-            return call_user_func($callback);
+            return call_user_func($callback, $this->request);
         }
         return call_user_func($callback);
     }

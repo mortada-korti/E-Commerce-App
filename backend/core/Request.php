@@ -14,4 +14,22 @@ class Request
     {
         return strtolower($_SERVER['REQUEST_METHOD']);
     }
+
+    public function isGet()
+    {
+        return $this->getMethod() === "get";
+    }
+
+    public function isPost()
+    {
+        return $this->getMethod() === "post";
+    }
+
+    public function getData()
+    {
+        if ($this->isPost()) {
+            $data = json_decode(file_get_contents("php://input"));
+            return $data;
+        }
+    }
 }
