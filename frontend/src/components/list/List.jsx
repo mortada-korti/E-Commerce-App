@@ -9,12 +9,14 @@ import styled from "@emotion/styled";
 
 import "./list.scss";
 import UseFtech from "../../hooks/UseFtech";
+import { Link } from "react-router-dom";
 
-const List = ({ catId, subCats, sort }) => {
+const List = ({ catId, subCats, sort, maxPrice }) => {
   const payload = {
     catId: catId,
     subCats: subCats,
-    sort: sort
+    sort: sort,
+    maxPrice: maxPrice,
   };
   const { data, loading, error } = UseFtech(
     "/products",
@@ -43,7 +45,9 @@ const List = ({ catId, subCats, sort }) => {
               margin: "0.5rem 0",
             }}
             key={item.product_id}>
-            <Item item={item} />
+            <Link to={`/product/${item.product_id}`}>
+              <Item item={item} />
+            </Link>
           </Grid>
         ))
       )}

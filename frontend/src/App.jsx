@@ -1,4 +1,9 @@
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+  useLocation,
+} from "react-router-dom";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/DarkModeContext";
 import { createTheme } from "@mui/material";
@@ -6,14 +11,17 @@ import { createTheme } from "@mui/material";
 // Components
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
+import ScrollToTop from "./components/scrollToTop/ScrollToTop";
 
 // Pages
 import Home from "./pages/home/Home";
 import Products from "./pages/products/Products";
 import Product from "./pages/product/Product";
 import Cart from "./pages/cart/Cart";
+
 // @mui
 import { ThemeProvider } from "@mui/material/styles";
+import User from "./pages/user/User";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -65,6 +73,10 @@ function App() {
           path: "/cart",
           element: <Cart />,
         },
+        {
+          path: "/user",
+          element: <User />,
+        },
       ],
     },
   ]);
@@ -72,7 +84,9 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className='App'>
-        <RouterProvider router={router} />
+        <RouterProvider router={router}>
+          <ScrollToTop />
+        </RouterProvider>
       </div>
     </ThemeProvider>
   );

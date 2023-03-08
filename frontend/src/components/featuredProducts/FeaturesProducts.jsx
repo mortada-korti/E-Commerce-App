@@ -2,41 +2,17 @@ import { Stack, Typography } from "@mui/material";
 import Item from "../item/Item";
 import "./featuredProducts.scss";
 import styled from "@emotion/styled";
+import UseFtech from "../../hooks/UseFtech";
+import { Link } from "react-router-dom";
 
 const FeaturesProducts = ({ type }) => {
-  const data = [
-    {
-      id: 1,
-      img: "https://images.pexels.com/photos/1972115/pexels-photo-1972115.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      img2: "https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      title: "Long Sleeve Graphic T-shirt",
-      isNew: true,
-      oldPrice: 19,
-      price: 12,
-    },
-    {
-      id: 2,
-      img: "https://images.pexels.com/photos/3760852/pexels-photo-3760852.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      title: "Coat",
-      isNew: true,
-      oldPrice: 19,
-      price: 12,
-    },
-    {
-      id: 3,
-      img: "https://images.pexels.com/photos/1457983/pexels-photo-1457983.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      title: "skirt",
-      oldPrice: 19,
-      price: 12,
-    },
-    {
-      id: 4,
-      img: "https://images.pexels.com/photos/2065200/pexels-photo-2065200.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      title: "hat",
-      oldPrice: 19,
-      price: 12,
-    },
-  ];
+  const productType = type === "Featured" ? 1 : 2;
+  const { data, loading, error } = UseFtech(
+    "/products/type",
+    "post",
+    productType
+  );
+
   return (
     <FeaturedProductsContainer>
       <Upper>
@@ -55,7 +31,9 @@ const FeaturesProducts = ({ type }) => {
       </Upper>
       <Lower>
         {data?.map((item) => (
-          <Item key={item.id} item={item} />
+          <Link to={`/product/${item.product_id}`} key={item.product_id}>
+            <Item item={item} />
+          </Link>
         ))}
       </Lower>
     </FeaturedProductsContainer>
@@ -88,17 +66,20 @@ const Upper = styled(Stack)(({ theme }) => ({
 
 const Lower = styled(Stack)(({ theme }) => ({
   display: "flex",
-  flexWrap: "wrap",
+  maxWidth: "100%",
+  overflowX: "auto",
+  overflowY: "hidden",
+  paddingBottom: "1rem",
+  "&::-webkit-scrollbar": {
+    height: "5px",
+    backgroundColor: theme.palette.divider,
+    borderRadius: "100px",
+  },
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: theme.palette.text.secondary,
+    borderRadius: "100px",
+  },
   flexDirection: "row",
-  justifyContent: "center",
-  width: "100%",
   margin: "auto",
   gap: "2rem",
-  [theme.breakpoints.down("xl")]: {
-    width: "100%",
-  },
-  [theme.breakpoints.down("md")]: {
-    flexDirection: "column",
-    alignItems: "center",
-  },
 }));

@@ -8,8 +8,8 @@ const UseFtech = (url, method, params) => {
   const [error, setError] = useState(false);
 
   const fetchData = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
       const res =
         method === "post"
           ? await makeRequest.post(url, params)

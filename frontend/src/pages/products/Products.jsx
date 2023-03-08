@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 
 // @mui
 import { Grid, Slider, Stack, Typography } from "@mui/material";
@@ -15,12 +15,20 @@ import styled from "@emotion/styled";
 // Style
 import "./products.scss";
 import UseFtech from "../../hooks/UseFtech";
+import ScrollToTop from "../../components/scrollToTop/ScrollToTop";
 
 const Products = () => {
-  const [sort, setSort] = useState("asc");
+  const images = [
+    "https://images.pexels.com/photos/1192609/pexels-photo-1192609.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    "https://images.pexels.com/photos/2036646/pexels-photo-2036646.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    "https://images.pexels.com/photos/35188/child-childrens-baby-children-s.jpg?auto=compress&cs=tinysrgb&w=1600",
+  ];
+  const [sort, setSort] = useState(null);
+
   const catId = parseInt(useParams().id);
-console.log(sort)
-  const [maxPrice, setMaxPrice] = useState(null);
+
+  const [maxPrice, setMaxPrice] = useState(1000);
+
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
 
   const handleSelectedSubcats = (e) => {
@@ -36,6 +44,7 @@ console.log(sort)
 
   return (
     <PageContainer container>
+      <ScrollToTop />
       <SideBar item xs={0} md={5} lg={3} xl={2}>
         {/*  */}
         <Stack spacing={2}>
@@ -44,7 +53,9 @@ console.log(sort)
 
           <FormGroup>
             {loading ? (
-              <Typography color='text.primary'>Loading...</Typography>
+              <Typography sx={{ minHeight: "100vh" }} color='text.primary'>
+                Loading...
+              </Typography>
             ) : error ? (
               <Typography color='text.primary'>
                 Something Went Wrong ...
@@ -125,7 +136,8 @@ console.log(sort)
 
       <ProductsContainer item xs={12} md={7} lg={9} xl={10}>
         <img
-          src='https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs=tinysrgb&w=1600'
+          src={images[catId - 1]}
+          // src='https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs=tinysrgb&w=1600'
           alt=''
         />
 
@@ -143,16 +155,14 @@ console.log(sort)
 export default Products;
 
 const SideBar = styled(Grid)(({ theme }) => ({
-  backgroundColor: "background.default",
+  backgroundColor: theme.palette.background.default,
   color: theme.palette.text.primary,
   width: "100%",
   padding: "1rem",
-  position: "sticky",
-  top: "1rem",
   display: "flex",
   flexDirection: "column",
   gap: "2rem",
-  height: "100%",
+  height: "calc(100vh - 4rem)",
   [theme.breakpoints.down("md")]: {
     display: "none",
   },

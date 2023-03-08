@@ -20,7 +20,7 @@ const Header = () => {
 
   return (
     <StyledHeader className='header' alignItems='center' direction='row'>
-      <HeaderLeft direction='row' spacing={2} flex={1}>
+      <HeaderLeft direction='row' spacing={3} flex={1}>
         {/*  */}
 
         <Stack className='header--item' alignItems='center' direction='row'>
@@ -45,22 +45,22 @@ const Header = () => {
           <StyledLink>Children</StyledLink>
         </Link>
 
-        <Link to='products/4'>
-          <StyledLink>Accessories</StyledLink>
-        </Link>
-
         {/*  */}
       </HeaderLeft>
-      
+
       <HeaderCenter>
-        <Link to='/'>E-SHOP</Link>
+        <Link to='/'>
+          <Typography fontWeight='bold' fontSize='1.5rem' color='primary.main'>
+            E-SHOP
+          </Typography>
+        </Link>
       </HeaderCenter>
 
       <HeaderRight direction='row' spacing={{ xs: 0, sm: 2 }}>
         {/*  */}
-        <Links direction='row' spacing={2}>
+        <Links direction='row' spacing={3}>
           <Link to='/'>
-            <StyledLink variant=''>Homepage</StyledLink>
+            <StyledLink>Homepage</StyledLink>
           </Link>
 
           <Link to='/'>
@@ -70,21 +70,19 @@ const Header = () => {
           <Link to='/'>
             <StyledLink>Contact</StyledLink>
           </Link>
-
-          <Link to='/'>
-            <StyledLink>Stores</StyledLink>
-          </Link>
         </Links>
 
         <IconButton onClick={() => setDarkMode(!darkMode)} color='text.primary'>
           {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
         </IconButton>
 
-        <Box>
-          <IconButton>
-            <PersonOutlineIcon />
-          </IconButton>
-        </Box>
+        <Link to='/user'>
+          <Box>
+            <IconButton>
+              <PersonOutlineIcon />
+            </IconButton>
+          </Box>
+        </Link>
 
         <Box>
           <IconButton>

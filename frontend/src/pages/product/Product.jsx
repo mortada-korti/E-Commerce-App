@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 // @mui
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
@@ -20,9 +21,11 @@ import {
 // Style
 import "./product.scss";
 import styled from "@emotion/styled";
+import UseFtech from "../../hooks/UseFtech";
 
 const Product = () => {
-  const [selectedIndex, setSelectedIndex] = useState(1);
+  const productId = parseInt(useParams().id);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -34,103 +37,116 @@ const Product = () => {
     }
   };
 
-  const images = [
-    "https://images.pexels.com/photos/10026491/pexels-photo-10026491.png?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-    "https://images.pexels.com/photos/12179283/pexels-photo-12179283.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-  ];
+  const { data, loading, error } = UseFtech("/product/info", "post", productId);
+  const images = [data[0]?.img, data[0]?.img2];
 
   return (
     <ProductContainer container spacing={2}>
-      <LeftSide item xs={12} lg={6}>
-        <SmallContainer>
-          {/*  */}
-          <SmallImg>
-            <img src={images[0]} alt='' onClick={() => setSelectedIndex(0)} />
-          </SmallImg>
+      {loading ? (
+        "loading.."
+      ) : error ? (
+        "error"
+      ) : (
+        <>
+          <LeftSide item xs={12} lg={6}>
+            <SmallContainer>
+              {/*  */}
+              <SmallImg>
+                <img
+                  src={data[0]?.img}
+                  alt=''
+                  onClick={() => setSelectedIndex(0)}
+                />
+              </SmallImg>
 
-          <SmallImg>
-            <img src={images[1]} alt='' onClick={() => setSelectedIndex(1)} />
-          </SmallImg>
-          {/*  */}
-        </SmallContainer>
+              <SmallImg>
+                {data[0]?.img2 && (
+                  <img
+                    src={data[0]?.img2}
+                    alt=''
+                    onClick={() => setSelectedIndex(1)}
+                  />
+                )}
+              </SmallImg>
+              {/*  */}
+            </SmallContainer>
 
-        <LargeImg>
-          <img src={images[selectedIndex]} alt='' />
-        </LargeImg>
-      </LeftSide>
+            <LargeImg>
+              <img src={images[selectedIndex]} alt='' />
+            </LargeImg>
+          </LeftSide>
 
-      <RightSide item sm={12} lg={6}>
-        <ProductTitle>Long Sleeve Graphic T-shirt</ProductTitle>
+          <RightSide item sm={12} lg={6}>
+            <ProductTitle>{data[0]?.title}</ProductTitle>
 
-        <Typography sx={{ color: "primary.main", fontSize: "1.5rem" }}>
-          $19.99
-        </Typography>
+            <Typography sx={{ color: "primary.main", fontSize: "1.5rem" }}>
+              ${data[0]?.price}
+            </Typography>
 
-        <Typography sx={{ color: "text.secondary" }}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut assumenda
-          ducimus repudiandae! Sed, provident vitae expedita pariatur deleniti
-          sequi accusantium aut. Illo pariatur dignissimos voluptatibus eius
-          aperiam itaque, magni quae.
-        </Typography>
+            <Typography sx={{ color: "text.secondary" }}>
+              {data[0]?.desc}
+            </Typography>
 
-        <QuantityContainer>
-          <IconButton
-            color='primary'
-            onClick={() => handleQuantity("-")}
-            disabled={quantity === 1}>
-            <RemoveCircleRoundedIcon />
-          </IconButton>
+            <QuantityContainer>
+              <IconButton
+                color='primary'
+                onClick={() => handleQuantity("-")}
+                disabled={quantity === 1}>
+                <RemoveCircleRoundedIcon />
+              </IconButton>
 
-          <Typography>{quantity}</Typography>
+              <Typography>{quantity}</Typography>
 
-          <IconButton
-            color='primary'
-            onClick={() => handleQuantity("+")}
-            disabled={quantity === 10}>
-            <AddCircleRoundedIcon />
-          </IconButton>
-        </QuantityContainer>
+              <IconButton
+                color='primary'
+                onClick={() => handleQuantity("+")}
+                disabled={quantity === 10}>
+                <AddCircleRoundedIcon />
+              </IconButton>
+            </QuantityContainer>
 
-        <Button
-          variant='contained'
-          sx={{ width: "200px" }}
-          startIcon={<AddShoppingCartIcon />}>
-          ADD TO CART
-        </Button>
-
-        <Stack direction='row' spacing={2}>
-          <Button
-            disableRipple
-            startIcon={isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-            onClick={() => setIsLiked(!isLiked)}>
-            ADD TO WISHLIST
-          </Button>
-
-          <Stack direction='row' spacing={1} alignItems='center'>
-            <Button disableRipple startIcon={<BalanceIcon />}>
-              ADD TO COMPARE
+            <Button
+              variant='contained'
+              sx={{ width: "200px" }}
+              startIcon={<AddShoppingCartIcon />}>
+              ADD TO CART
             </Button>
-          </Stack>
-        </Stack>
 
-        <Stack direction='column' className='product--info' spacing={1}>
-          <SpanInfo>Vendor: Polo</SpanInfo>
-          <SpanInfo>Product Type: T-Shirt</SpanInfo>
-          <SpanInfo>Tag: T-Shirt, Women, Top</SpanInfo>
-        </Stack>
+            <Stack direction='row' spacing={2}>
+              <Button
+                disableRipple
+                startIcon={isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                onClick={() => setIsLiked(!isLiked)}>
+                ADD TO WISHLIST
+              </Button>
 
-        <Divider />
+              <Stack direction='row' spacing={1} alignItems='center'>
+                <Button disableRipple startIcon={<BalanceIcon />}>
+                  ADD TO COMPARE
+                </Button>
+              </Stack>
+            </Stack>
 
-        <Stack
-          sx={{ width: "250px" }}
-          direction='column'
-          spacing={1}
-          divider={<Divider orientation='horizontal' flexItem />}>
-          <SpanInfo>DESCRIPTION</SpanInfo>
-          <SpanInfo>ADDITIONAL INFORMATION</SpanInfo>
-          <SpanInfo>FAQ</SpanInfo>
-        </Stack>
-      </RightSide>
+            <Stack direction='column' className='product--info' spacing={1}>
+              <SpanInfo>Vendor: Polo</SpanInfo>
+              <SpanInfo>Product Type: {data[0]?.subCatName}</SpanInfo>
+              <SpanInfo>Tag: {data[0]?.subCatName}, {data[0]?.catName}</SpanInfo>
+            </Stack>
+
+            <Divider />
+
+            <Stack
+              sx={{ width: "250px" }}
+              direction='column'
+              spacing={1}
+              divider={<Divider orientation='horizontal' flexItem />}>
+              <SpanInfo>DESCRIPTION</SpanInfo>
+              <SpanInfo>ADDITIONAL INFORMATION</SpanInfo>
+              <SpanInfo>FAQ</SpanInfo>
+            </Stack>
+          </RightSide>
+        </>
+      )}
     </ProductContainer>
   );
 };
@@ -173,6 +189,7 @@ const RightSide = styled(Grid)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: "1rem",
+  width: "100%",
   [theme.breakpoints.down("lg")]: {
     textAlign: "center",
     alignItems: "center",
@@ -183,6 +200,7 @@ const ProductContainer = styled(Grid)(({ theme }) => ({
   padding: "2rem",
   backgroundColor: theme.palette.background.default,
   color: theme.palette.text.primary,
+  alignItems: "flex-start",
   [theme.breakpoints.down("sm")]: {
     padding: "2rem 0.5rem",
   },
@@ -219,9 +237,9 @@ const LargeImg = styled(Box)(({ theme }) => ({
   "& > img": {
     width: "100%",
     height: "80vh",
+    objectFit: "cover",
     [theme.breakpoints.down("lg")]: {
       height: "100%",
-      objectFit: "cover",
     },
   },
 }));

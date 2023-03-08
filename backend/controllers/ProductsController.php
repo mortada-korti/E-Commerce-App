@@ -27,17 +27,24 @@ class ProductsController
         return json_encode($subCats);
     }
 
-    public function FilterByCategories(Request $request)
+    public function ProductInfo(Request $request)
     {
-        $catId = $request->getData();
-        $products = $this->model->getCategoryProducts($catId);
+        $productId = $request->getData();
+        $product = $this->model->getProductInfo($productId);
+        return json_encode($product);
+    }
+
+    public function ProductType(Request $request)
+    {
+        $productType = $request->getData();
+        $products = $this->model->getProductType($productType);
         return json_encode($products);
     }
 
-    public function FilterBySubCategories(Request $request)
+    public function ProductAdd(Request $request)
     {
-        $subCatId = $request->getData();
-        $products = $this->model->getSubCategoryProducts($subCatId);
-        return json_encode($products);
+        $inputs = $request->getData();
+        $result = $this->model->addProduct($inputs);
+        if (!$result) return "error";
     }
 }

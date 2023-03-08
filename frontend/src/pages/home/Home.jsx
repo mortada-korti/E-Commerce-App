@@ -10,6 +10,7 @@ import Carousel from "react-bootstrap/Carousel";
 // Style
 import "./home.scss";
 import styled from "@emotion/styled";
+import ScrollToTop from "../../components/scrollToTop/ScrollToTop";
 
 const Home = () => {
   const images = [
@@ -20,6 +21,7 @@ const Home = () => {
 
   return (
     <HomeContainer direction='column' spacing={3}>
+      <ScrollToTop />
       <Carousel className='carousel'>
         {images?.map((item) => (
           <Carousel.Item key={item} className='carousel--item'>
