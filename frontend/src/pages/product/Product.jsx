@@ -1,5 +1,12 @@
+import UseFtech from "../../hooks/UseFtech";
+import { makeRequest } from "../../hooks/MakeRequest";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/cartReducer";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
+// Pages
+import NotFound from "../404/NotFound";
 
 // @mui
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
@@ -8,6 +15,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BalanceIcon from "@mui/icons-material/Balance";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Box,
   Button,
@@ -17,13 +25,11 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-
-// Style
-import "./product.scss";
 import styled from "@emotion/styled";
-import UseFtech from "../../hooks/UseFtech";
 
 const Product = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const productId = parseInt(useParams().id);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -36,16 +42,21 @@ const Product = () => {
       setQuantity((prevQuantity) => prevQuantity - 1);
     }
   };
-
+  const deleteProduct = () => {
+    makeRequest.post("/delete-product", productId).then((res) => {
+      navigate("/");
+    });
+  };
   const { data, loading, error } = UseFtech("/product/info", "post", productId);
   const images = [data[0]?.img, data[0]?.img2];
-
   return (
     <ProductContainer container spacing={2}>
       {loading ? (
         "loading.."
       ) : error ? (
         "error"
+      ) : !data ? (
+        <NotFound />
       ) : (
         <>
           <LeftSide item xs={12} lg={6}>
@@ -106,13 +117,25 @@ const Product = () => {
             </QuantityContainer>
 
             <Button
+              onClick={() =>
+                dispatch(
+                  addToCart({
+                    product_id: data[0]?.product_id,
+                    title: data[0]?.title,
+                    desc: data[0]?.desc,
+                    price: data[0]?.price,
+                    img: data[0]?.img,
+                    quantity,
+                  })
+                )
+              }
               variant='contained'
               sx={{ width: "200px" }}
               startIcon={<AddShoppingCartIcon />}>
               ADD TO CART
             </Button>
 
-            <Stack direction='row' spacing={2}>
+            <Stack direction={{ sm: "column", md: "row" }} spacing={2}>
               <Button
                 disableRipple
                 startIcon={isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
@@ -125,12 +148,24 @@ const Product = () => {
                   ADD TO COMPARE
                 </Button>
               </Stack>
+
+              <Button
+                disableRipple
+                color='error'
+                startIcon={isLiked ? <DeleteIcon /> : <DeleteIcon />}
+                onClick={() => deleteProduct(productId)}>
+                DELETE PRODUCT
+              </Button>
             </Stack>
 
             <Stack direction='column' className='product--info' spacing={1}>
-              <SpanInfo>Vendor: Polo</SpanInfo>
+              <SpanInfo>
+                Vendor: {data[0]?.vendor ? data[0]?.vendor : "NA"}
+              </SpanInfo>
               <SpanInfo>Product Type: {data[0]?.subCatName}</SpanInfo>
-              <SpanInfo>Tag: {data[0]?.subCatName}, {data[0]?.catName}</SpanInfo>
+              <SpanInfo>
+                Tag: {data[0]?.subCatName}, {data[0]?.catName}
+              </SpanInfo>
             </Stack>
 
             <Divider />

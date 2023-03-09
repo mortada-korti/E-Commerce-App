@@ -4,9 +4,6 @@ import { Link } from "react-router-dom";
 import { Box, Button, Stack } from "@mui/material";
 import styled from "@emotion/styled";
 
-// Style
-import "./categories.scss";
-
 const Categories = () => {
   return (
     <StyledCategories>

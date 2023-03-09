@@ -2,15 +2,12 @@
 import FeaturesProducts from "../../components/featuredProducts/FeaturesProducts";
 import Categories from "../../components/categories/Categories";
 import Contact from "../../components/contact/Contact";
+import ScrollToTop from "../../components/scrollToTop/ScrollToTop";
 
 // @mui
 import { Box, Stack } from "@mui/material";
 import Carousel from "react-bootstrap/Carousel";
-
-// Style
-import "./home.scss";
 import styled from "@emotion/styled";
-import ScrollToTop from "../../components/scrollToTop/ScrollToTop";
 
 const Home = () => {
   const images = [

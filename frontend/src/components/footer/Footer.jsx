@@ -4,9 +4,6 @@ import { Link } from "react-router-dom";
 import { Box, Stack, Typography } from "@mui/material";
 import styled from "@emotion/styled";
 
-// Style
-import "./footer.scss";
-
 const Footer = () => {
   return (
     <StyledFooter>

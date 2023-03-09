@@ -1,6 +1,7 @@
 import { DarkModeContext } from "../../context/DarkModeContext";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // @mui
 import { Badge, Box, IconButton, Stack, Typography } from "@mui/material";
@@ -12,10 +13,8 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import styled from "@emotion/styled";
 
-// Style
-import "./header.scss";
-
 const Header = () => {
+  const products = useSelector((state) => state.cart.products);
   const { darkMode, setDarkMode } = useContext(DarkModeContext);
 
   return (
@@ -76,7 +75,7 @@ const Header = () => {
           {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
         </IconButton>
 
-        <Link to='/user'>
+        <Link to='/add'>
           <Box>
             <IconButton>
               <PersonOutlineIcon />
@@ -92,7 +91,7 @@ const Header = () => {
 
         <Link to='/cart'>
           <IconButton>
-            <Badge badgeContent={4} color='primary'>
+            <Badge badgeContent={products.length} color='primary'>
               <ShoppingCartOutlinedIcon />
             </Badge>
           </IconButton>

@@ -16,51 +16,26 @@ class Model extends Database
             $order = "ORDER BY price $data->sort";
         }
         $sql = "SELECT * FROM products WHERE product_catId = $data->catId " . $str . " AND price < $data->maxPrice " . $order;
-        // return $sql;
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
-        if (is_array($result) && count($result)) {
-            return $result;
-        }
-        return false;
+        return $this->query($sql);
     }
 
     public function getSubCats()
     {
         $sql = "SELECT * FROM subcategories";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
-        if (is_array($result) && count($result)) {
-            return $result;
-        }
-        return false;
+        return $this->query($sql);
     }
 
     public function getProductInfo($productId)
     {
 
         $sql = "SELECT p.*, sc.name as subCatName, c.title as catName FROM products p JOIN subcategories sc ON p.product_subCatId = sc.subcat_id JOIN categories c ON p.product_catId = c.cat_id WHERE p.product_id = $productId";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
-        if (is_array($result) && count($result)) {
-            return $result;
-        }
-        return false;
+        return $this->query($sql);
     }
 
     public function getProductType($productType)
     {
         $sql = "SELECT * FROM products WHERE type = $productType";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
-        if (is_array($result) && count($result)) {
-            return $result;
-        }
-        return false;
+        return $this->query($sql);
     }
 
     public function addProduct($inputs)
@@ -75,5 +50,19 @@ class Model extends Database
         }
         $result = $stmt->execute();
         return $result;
+    }
+
+    public function deleteProduct($productId)
+    {
+        $sql = "DELETE FROM products WHERE product_id = $productId";
+        $stmt = $this->pdo->prepare($sql);
+        $result = $stmt->execute();
+        return $result;
+    }
+
+    public function getCategory($catId)
+    {
+        $sql = "SELECT * FROM categories WHERE cat_id = $catId";
+        return $this->query($sql);
     }
 }

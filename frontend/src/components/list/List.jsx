@@ -1,15 +1,12 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-
-import Item from "../item/Item";
-import { makeRequest } from "../../hooks/MakeRequest";
-
-import { Box, Grid, Stack, Typography } from "@mui/material";
-import styled from "@emotion/styled";
-
-import "./list.scss";
 import UseFtech from "../../hooks/UseFtech";
 import { Link } from "react-router-dom";
+
+// components
+import Item from "../item/Item";
+
+// @mui
+import { Grid, Typography } from "@mui/material";
+import styled from "@emotion/styled";
 
 const List = ({ catId, subCats, sort, maxPrice }) => {
   const payload = {
@@ -18,6 +15,7 @@ const List = ({ catId, subCats, sort, maxPrice }) => {
     sort: sort,
     maxPrice: maxPrice,
   };
+
   const { data, loading, error } = UseFtech(
     "/products",
     "post",

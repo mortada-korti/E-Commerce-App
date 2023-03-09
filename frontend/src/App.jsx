@@ -18,10 +18,11 @@ import Home from "./pages/home/Home";
 import Products from "./pages/products/Products";
 import Product from "./pages/product/Product";
 import Cart from "./pages/cart/Cart";
+import ProductAdd from "./pages/productAdd/ProductAdd";
 
 // @mui
 import { ThemeProvider } from "@mui/material/styles";
-import User from "./pages/user/User";
+import NotFound from "./pages/404/NotFound";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -74,8 +75,12 @@ function App() {
           element: <Cart />,
         },
         {
-          path: "/user",
-          element: <User />,
+          path: "/add",
+          element: <ProductAdd />,
+        },
+        {
+          path: "*",
+          element: <NotFound />,
         },
       ],
     },

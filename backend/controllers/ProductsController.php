@@ -47,4 +47,18 @@ class ProductsController
         $result = $this->model->addProduct($inputs);
         if (!$result) return "error";
     }
+
+    public function ProductDelete(Request $request)
+    {
+        $productId = $request->getData();
+        $result = $this->model->deleteProduct($productId);
+        if (!$result) return "error";
+    }
+
+    public function CategoriesList(Request $request)
+    {
+        $catId = $request->getData();
+        $result = $this->model->getCategory($catId);
+        return json_encode($result);
+    }
 }

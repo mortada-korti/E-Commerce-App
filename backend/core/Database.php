@@ -30,4 +30,15 @@ class Database
             echo $e->getMessage();
         }
     }
+
+    public function query($sql)
+    {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        if (is_array($result) && count($result)) {
+            return $result;
+        }
+        return false;
+    }
 }

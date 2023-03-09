@@ -1,9 +1,11 @@
-import { Stack, Typography } from "@mui/material";
-import Item from "../item/Item";
-import "./featuredProducts.scss";
-import styled from "@emotion/styled";
-import UseFtech from "../../hooks/UseFtech";
 import { Link } from "react-router-dom";
+import Item from "../item/Item";
+
+import UseFtech from "../../hooks/UseFtech";
+
+// @mui
+import { Stack, Typography } from "@mui/material";
+import styled from "@emotion/styled";
 
 const FeaturesProducts = ({ type }) => {
   const productType = type === "Featured" ? 1 : 2;

@@ -21,7 +21,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { makeRequest } from "../../hooks/MakeRequest";
 import { useNavigate } from "react-router-dom";
 
-const User = () => {
+const ProductAdd = () => {
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -207,7 +207,7 @@ const User = () => {
   );
 };
 
-export default User;
+export default ProductAdd;
 
 const UserContainer = styled(Box)(({ theme }) => ({
   padding: "2rem",

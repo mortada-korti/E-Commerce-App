@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import UseFtech from "../../hooks/UseFtech";
+
+// Components
+import ScrollToTop from "../../components/scrollToTop/ScrollToTop";
+
+// Pages
+import NotFound from "../404/NotFound";
 
 // @mui
 import { Grid, Slider, Stack, Typography } from "@mui/material";
@@ -11,13 +18,10 @@ import Radio from "@mui/material/Radio";
 import FormControl from "@mui/material/FormControl";
 import RadioGroup from "@mui/material/RadioGroup";
 import styled from "@emotion/styled";
-
-// Style
-import "./products.scss";
-import UseFtech from "../../hooks/UseFtech";
-import ScrollToTop from "../../components/scrollToTop/ScrollToTop";
+import { makeRequest } from "../../hooks/MakeRequest";
 
 const Products = () => {
+  const navigate = useNavigate();
   const images = [
     "https://images.pexels.com/photos/1192609/pexels-photo-1192609.jpeg?auto=compress&cs=tinysrgb&w=1600",
     "https://images.pexels.com/photos/2036646/pexels-photo-2036646.jpeg?auto=compress&cs=tinysrgb&w=1600",
@@ -39,6 +43,11 @@ const Products = () => {
         : (prev) => prev.filter((item) => item !== parseInt(value))
     );
   };
+  useEffect(() => {
+    makeRequest.post("/categories", catId).then((res) => {
+      if (!res.data) navigate("/");
+    });
+  }, []);
 
   const { data, loading, error } = UseFtech("/subcategories", "get");
 

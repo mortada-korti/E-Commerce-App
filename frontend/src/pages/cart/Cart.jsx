@@ -1,3 +1,5 @@
+import { useDispatch, useSelector } from "react-redux";
+
 // @mui
 import { Button, IconButton, Stack, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -6,44 +8,23 @@ import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import styled from "@emotion/styled";
 
 // Style
-import "./cart.scss";
+import { removeFromCart, resetCart } from "../../redux/cartReducer";
 
 const Cart = () => {
-  const data = [
-    {
-      id: 1,
-      img: "https://images.pexels.com/photos/1972115/pexels-photo-1972115.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      img2: "https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      title: "Long Sleeve Graphic T-shirt",
-      desc: "lorem lorem lorem lorem",
-      isNew: true,
-      oldPrice: 19,
-      price: 12,
-    },
-    {
-      id: 2,
-      img: "https://images.pexels.com/photos/3760852/pexels-photo-3760852.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      title: "Coat",
-      desc: "lorem lorem lorem lorem lorem loremlorem lorem lorem loremlorem lorem lorem lorem lorem lorem",
-      isNew: true,
-      oldPrice: 19,
-      price: 12,
-    },
-    {
-      id: 3,
-      img: "https://images.pexels.com/photos/3760852/pexels-photo-3760852.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      title: "Coat",
-      desc: "lorem lorem lorem lorem lorem loremlorem lorem lorem loremlorem lorem lorem lorem lorem lorem",
-      isNew: true,
-      oldPrice: 19,
-      price: 12,
-    },
-  ];
+  const products = useSelector((state) => state.cart.products);
+  const subTotal = () => {
+    let total = 0;
+    products.forEach((item) => {
+      total += item.quantity * item.price;
+    });
+    return total.toFixed(2);
+  };
+  const dispatch = useDispatch();
   return (
     <StyledCart>
       <CartTitle>Products in your cart</CartTitle>
-      {data?.map((item) => (
-        <CartItem key={item.id} item={item}>
+      {products?.map((item) => (
+        <CartItem key={item.product_id} item={item}>
           <img src={item.img} alt='' />
 
           <Stack
@@ -72,12 +53,20 @@ const Cart = () => {
                   fontWeight: "500",
                   fontSize: "0.9rem",
                 }}>
-                1 x ${item.price}
+                {item.quantity} x ${item.price}
               </Typography>
               {/*  */}
             </Stack>
 
-            <IconButton color='error'>
+            <IconButton
+              color='error'
+              onClick={() =>
+                dispatch(
+                  removeFromCart({
+                    product_id: item.product_id,
+                  })
+                )
+              }>
               <DeleteIcon color='error' />
             </IconButton>
             {/*  */}
@@ -94,7 +83,7 @@ const Cart = () => {
           SUBTOTAL
         </Typography>
         <Typography sx={{ color: "text.primary", fontWeight: "600" }}>
-          $123
+          ${subTotal()}
         </Typography>
       </Stack>
 
@@ -105,6 +94,7 @@ const Cart = () => {
         PROCEED TO CHECKOUT
       </Button>
       <Button
+        onClick={() => dispatch(resetCart())}
         sx={{ width: "100%" }}
         startIcon={<RestartAltIcon />}
         variant='outlined'
